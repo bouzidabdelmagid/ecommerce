@@ -21,6 +21,16 @@ const Cart = () => {
    
   fetchcart() 
    },[])
+   const removeFromCart=async (id)=>{
+    try {
+      const token=localStorage.getItem("accessToken")
+      const response=await axios.delete(`http://localhost:3001/cart/productdelete/${id}`,{headers:{Authorization: `Bearer ${token}`}})
+      console.log("Product removed from cart")
+      setcartItems(cartItems.filter(item=>item.product._id !== id))
+    } catch (error) {
+      console.log("Failled to remove Product",error)
+    } 
+    }
   return (
     <div>
         <Navbar/>
@@ -81,6 +91,22 @@ const Cart = () => {
                 <td>
                   <h5>$720.00</h5>
                 </td>
+               
+<td>
+  <button onClick={() => removeFromCart(cart.product._id)}
+    style={{
+      backgroundColor: '#007bff', // Bootstrap blue
+      color: '#fff',
+      border: 'none',
+      borderRadius: '4px',
+      padding: '6px 10px',
+      cursor: 'pointer'
+    }}
+  >
+    <i className="bi bi-file-x-fill"></i>
+  </button>
+</td>
+
               </tr>))}
              
            

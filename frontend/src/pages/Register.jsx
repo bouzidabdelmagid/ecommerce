@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const [formData,setformData]=useState({fullName:"",email:"",password:"",confirmpassword:"",address:"",Country:"",phoneNumber:""})
@@ -53,7 +53,7 @@ navigate('/login')
             <div className="hover">
               <h4>Already have an account?</h4>
               <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-              <a className="button button-account" href="login.html">Login Now</a>
+              <Link className="button button-account" to="/login">Login Now</Link>
             </div>
           </div>
         </div>

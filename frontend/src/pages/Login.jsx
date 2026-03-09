@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [email,setEmail]=useState("")
@@ -52,7 +52,7 @@ const Login = () => {
             <div className="hover">
               <h4>New to our website?</h4>
               <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-              <a className="button button-account" href="register.html">Create an Account</a>
+              <Link className="button button-account" to="/register">Create an Account</Link>
             </div>
           </div>
         </div>
