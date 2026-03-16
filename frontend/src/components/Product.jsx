@@ -1,18 +1,21 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getallproductsaction } from '../redux/actions/productaction'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Product = () => {
-  const [productList,setproductList]=useState ([])
-  
+  /* const [productList,setproductList]=useState ([]) */
+  const dispatch=useDispatch()
+  const productList=useSelector(state=>state.product.listproducts)
   //sumiler la recuperation des produits//
   useEffect (() =>{
     //on va aprés écrire l'url de backend//
     const fetchProduct=async ()=>{
       try { 
-        const response=await axios.get("http://localhost:3001/product/getallproduct")
-        setproductList(response.data.data)
-        console.log("the response from API",response.data.data)
+dispatch (getallproductsaction())
+        /* setproductList(response.data.data) */
+       /*  console.log("the response from API",response.data.data) */
       } catch (error) {console.error("failled to load product list",error)
         
       }

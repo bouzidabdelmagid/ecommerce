@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+  const userConnected=useSelector(state => state.user.currentUser)
   return (
   <div> 
   {/*================ Start Header Menu Area =================*/}
@@ -32,8 +34,7 @@ const Navbar = () => {
               <li className="nav-item submenu dropdown">
                 <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                 <ul className="dropdown-menu">
-                  <li className="nav-item"><Link to="/login" className="nav-link" >Login</Link></li>
-                  <li className="nav-item"><Link to="/register" className="nav-link" >Register</Link></li>
+                  
                   <li className="nav-item"><Link to="/tracking" className="nav-link">Tracking</Link></li>
                 </ul>
               </li>
@@ -42,7 +43,12 @@ const Navbar = () => {
             <ul className="nav-shop">
               <li className="nav-item"><button><i className="ti-search" /></button></li>
              <Link to="/cart">  <li className="nav-item"><button><i className="ti-shopping-cart" /><span className="nav-shop__circle">3</span></button> </li></Link>
-              <li className="nav-item"><a className="button button-header" href="#">Buy Now</a></li>
+             { userConnected ? 
+             ( <li className="nav-item"><button className="button button-header">logout</button></li>)
+             :
+             (<div><li className="nav-item"><Link to="/login" className="nav-link" >Login</Link></li>
+                  <li className="nav-item"><Link to="/register" className="nav-link" >Register</Link></li></div>)}
+             
             </ul>
           </div>
         </div>

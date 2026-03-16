@@ -3,20 +3,24 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { loginAction } from '../redux/actions/useraction'
 
 const Login = () => {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
   const navigate=useNavigate()
+  const dispatch=useDispatch()
   const HandelLogin=async(e)=> {
     //url de backend//
     try {
        e.preventDefault ()
     console.log("email saisi est:",email)
     console.log("password saisi est:",password)
-      const response=await axios.post("http://localhost:3001/user/login",{email,password},{headers:{"Content-Type":"application/json"}})
+      /* const response=await axios.post("http://localhost:3001/user/login",{email,password},{headers:{"Content-Type":"application/json"}})
       localStorage.setItem("accessToken",response.data.accessToken)
-      console.log(response.data)
+      console.log(response.data) */
+      dispatch (loginAction({email,password}))
       navigate('/')
     } catch (error) {
       console.error("failled login",error)

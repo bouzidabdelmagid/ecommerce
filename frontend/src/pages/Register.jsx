@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { registerAction } from '../redux/actions/useraction'
 
 const Register = () => {
   const [formData,setformData]=useState({fullName:"",email:"",password:"",confirmpassword:"",address:"",Country:"",phoneNumber:""})
@@ -10,12 +12,14 @@ const Register = () => {
     setformData({...formData,[e.target.name]:e.target.value})
   }
   const navigate=useNavigate()
+  const dispatch=useDispatch()
   const handelRegister=async(e)=> {
     try { e.preventDefault ()
     console.log("Les données saisis",formData)
-    const response=await axios.post("http://localhost:3001/user/register",formData,{headers:{"Content-Type":"application/json"}})
-navigate('/login')
-      
+    /* const response=await axios.post("http://localhost:3001/user/register",formData,{headers:{"Content-Type":"application/json"}}) */
+dispatch(registerAction(formData))
+    navigate('/login')
+     
     } catch (error) {
       console.error("failled to register",error) 
     }
