@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit"
-import { loginAction, registerAction } from "../actions/useraction"
+import { loginAction, logoutAction, registerAction } from "../actions/useraction"
 
 
 const initialState={
@@ -44,6 +44,20 @@ state.error=null
 state.currentUser=payload  
 })
 .addCase(registerAction.rejected,(state,{payload})=>{
+state.isFetching=false
+state.error=payload  
+})
+//start logout
+.addCase(logoutAction.pending,(state)=>{
+    state.isfetching=true
+    state.error=null
+})
+.addCase(logoutAction.fulfilled,(state,{payload})=>{
+state.isFetching=false
+state.error=null
+state.currentUser=null  
+})
+.addCase(logoutAction.rejected,(state,{payload})=>{
 state.isFetching=false
 state.error=payload  
 })

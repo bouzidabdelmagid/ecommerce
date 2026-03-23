@@ -9,11 +9,12 @@ import Orderconfirmation from './pages/Orderconfirmation';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Tracking from './pages/Tracking';
-
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div>
+      <ToastContainer position='top-right' autoClose={4000}/>
       <BrowserRouter>
       <Routes>
         <Route path='/'element={<Home/>}/>

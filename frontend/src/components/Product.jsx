@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getallproductsaction } from '../redux/actions/productaction'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const Product = () => {
   /* const [productList,setproductList]=useState ([]) */
@@ -22,8 +23,13 @@ dispatch (getallproductsaction())
     }
     fetchProduct()
   },[])
+  const userConnected=useSelector(state => state.user.currentuser)
   const handleaddtocart=async (product)=>{
     try {
+      if(!userConnected){
+        toast.warning("login or register is demand")
+        return;
+      }
        const token=localStorage.getItem("accessToken")
       const response=await axios.post("http://localhost:3001/cart/addcart",{product,quantity:1},{headers:{Authorization: `Bearer ${token}`}})
      console.log("Product added to cart")
