@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { getcartaction } from '../redux/actions/cartaction'
 
 const Cart = () => {
-  const [cartItems,setcartItems]= useState([])
-  
+ /*  const [cartItems,setcartItems]= useState([]) */
+  const dispatch=useDispatch()
+  const cartItems=useSelector(state=>state.cart.cart)
    useEffect (() => {
-    const fetchcart= async ()=>{
-      try {  
-        const token=localStorage.getItem("accessToken")
-        const response= await axios.get("http://localhost:3001/cart/getcart",{headers:{Authorization: `Bearer ${token}`}})
-        setcartItems(response.data.data.items)
- console.log("the response from API",response.data.data.items)
-      } catch (error) {console.error("failled to load product list",error)
-        
-      }
-    }
+   dispatch(getcartaction())
    
-  fetchcart() 
    },[])
    const removeFromCart=async (id)=>{
     try {
