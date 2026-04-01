@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { getallcategoryaction } from '../redux/actions/categoryaction'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Shop = () => {
-  const [categoryList,setcategoryList]= useState ([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const productList=useSelector(state=>state.product.listproducts)
+  const filteredProductsSearch=productList.filter(p=>p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  const productlistfiltered=selectedCategory? filteredProductsSearch.filter(p=>p.category._id===selectedCategory):filteredProductsSearch
+  const categoryList=useSelector(state=>state.category.categories)
+  const dispatch=useDispatch()
   useEffect (()=>{
-    const fakeApi=[
-    { id:1,name: "Women", count: 3600 },
-    { id:2, name: "Accessories", count: 3600 },
-    { id:3, name: "Footwear",count: 3600 },
-    { id:4, name: "Bay item", count: 3600 },
-    { id:5, name: "Electronics", count: 3600 },
-    {id:6, name: "Food", count: 3600 }
-  ]
-  setcategoryList(fakeApi)
+  dispatch(getallcategoryaction())
+
+  
   },[])
   return (
     <div>
@@ -48,7 +50,7 @@ const Shop = () => {
                 <ul>
                   {categoryList.map(cat => 
                     (<li className="filter-list">
-                    <input className="pixel-radio" type="radio" id="men" name="brand" />
+                    <input className="pixel-radio" type="radio" id="men" name="brand" onChange={()=> setSelectedCategory(cat._id)}/>
                     <label htmlFor="men">{cat.name}<span>{cat.count}</span></label></li>) )} 
                 </ul>
               </form>
@@ -118,7 +120,7 @@ const Shop = () => {
           </div>
           <div>
             <div className="input-group filter-bar-search">
-              <input type="text" placeholder="Search" />
+              <input type="text" placeholder="Search" onChange={(e) => setSearchTerm(e.target.value)} value={searchTerm} />
               <div className="input-group-append">
                 <button type="button"><i className="ti-search" /></button>
               </div>
@@ -129,10 +131,10 @@ const Shop = () => {
         {/* Start Best Seller */}
         <section className="lattest-product-area pb-40 category-list">
           <div className="row">
-            <div className="col-md-6 col-lg-4">
+            {productlistfiltered.map(p=>( <div className="col-md-6 col-lg-4 col-xl-3">
               <div className="card text-center card-product">
                 <div className="card-product__img">
-                  <img className="card-img" src="img/product/product1.png" alt />
+                  <img className="card-img" src={`http://localhost:3001/upload/${p.image}`} alt={p.name} />
                   <ul className="card-product__imgOverlay">
                     <li><button><i className="ti-search" /></button></li>
                     <li><button><i className="ti-shopping-cart" /></button></li>
@@ -140,148 +142,12 @@ const Shop = () => {
                   </ul>
                 </div>
                 <div className="card-body">
-                  <p>Accessories</p>
-                  <h4 className="card-product__title"><a href="#">Quartz Belt Watch</a></h4>
-                  <p className="card-product__price">$150.00</p>
+                  <p>{p.category.name}</p>
+                  <h4 className="card-product__title"><a href="#">{p.name}</a></h4>
+                  <p className="card-product__price">${p.price.toFixed(2)}</p>
                 </div>
               </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product2.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Beauty</p>
-                  <h4 className="card-product__title"><a href="#">Women Freshwash</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product3.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Decor</p>
-                  <h4 className="card-product__title"><a href="#">Room Flash Light</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product4.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Decor</p>
-                  <h4 className="card-product__title"><a href="#">Room Flash Light</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product5.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Accessories</p>
-                  <h4 className="card-product__title"><a href="#">Man Office Bag</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product6.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Kids Toy</p>
-                  <h4 className="card-product__title"><a href="#">Charging Car</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product7.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Accessories</p>
-                  <h4 className="card-product__title"><a href="#">Blutooth Speaker</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div> 
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product8.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Kids Toy</p>
-                  <h4 className="card-product__title"><a href="#">Charging Car</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card text-center card-product">
-                <div className="card-product__img">
-                  <img className="card-img" src="img/product/product1.png" alt />
-                  <ul className="card-product__imgOverlay">
-                    <li><button><i className="ti-search" /></button></li>
-                    <li><button><i className="ti-shopping-cart" /></button></li>
-                    <li><button><i className="ti-heart" /></button></li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <p>Accessories</p>
-                  <h4 className="card-product__title"><a href="#">Quartz Belt Watch</a></h4>
-                  <p className="card-product__price">$150.00</p>
-                </div>
-              </div>
-            </div>
+            </div>))}
           </div>
         </section>
         {/* End Best Seller */}

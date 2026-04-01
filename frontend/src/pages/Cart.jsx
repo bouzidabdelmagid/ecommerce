@@ -3,22 +3,22 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { getcartaction } from '../redux/actions/cartaction'
+import { getcartaction, removefromcartaction } from '../redux/actions/cartaction'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
  /*  const [cartItems,setcartItems]= useState([]) */
   const dispatch=useDispatch()
-  const cartItems=useSelector(state=>state.cart.cart)
+  const cartItems=useSelector(state=>state.cart.cart.items||[])
+  console.log("Cart Items:", cartItems)
    useEffect (() => {
    dispatch(getcartaction())
    
    },[])
    const removeFromCart=async (id)=>{
     try {
-      const token=localStorage.getItem("accessToken")
-      const response=await axios.delete(`http://localhost:3001/cart/productdelete/${id}`,{headers:{Authorization: `Bearer ${token}`}})
-      console.log("Product removed from cart")
-      setcartItems(cartItems.filter(item=>item.product._id !== id))
+      dispatch(removefromcartaction(id))
+      
     } catch (error) {
       console.log("Failled to remove Product",error)
     } 

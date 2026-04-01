@@ -10,6 +10,12 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Tracking from './pages/Tracking';
 import { ToastContainer } from 'react-toastify';
+import AdminLayOut from './pages/Admin/pages/AdminLayOut';
+import Dashboard from './pages/Admin/pages/Dashboard';
+import Catogories from './pages/Admin/pages/Catogories';
+import Products from './pages/Admin/pages/Products';
+import Orders from './pages/Admin/pages/Orders';
+import Users from './pages/Admin/pages/Users';
 
 function App() {
   return (
@@ -26,6 +32,14 @@ function App() {
         <Route path='/login'element={<Login/>}/>
         <Route path='/register'element={<Register/>}/>
         <Route path='/tracking'element={<Tracking/>}/>
+        <Route path='/admin/*'element={<AdminLayOut/>}>
+        <Route path='dashboard' element={<Dashboard/>}/>
+        <Route path='categories' element={<Catogories/>}/>
+        <Route path='products' element={<Products/>}/>
+        <Route path='orders' element={<Orders/>}/>
+        <Route path='users' element={<Users/>}/>  
+
+        </Route>
       </Routes>
       </BrowserRouter>
 

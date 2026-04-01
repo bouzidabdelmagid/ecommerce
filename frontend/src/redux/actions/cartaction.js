@@ -31,3 +31,16 @@ export const getcartaction=createAsyncThunk(
     }
 
 )
+export const removefromcartaction=createAsyncThunk(
+    "cart/remove",
+    async (id,{rejectWithValue})=> {
+        try {
+            const token=localStorage.getItem("accessToken")
+      const response=await axios.delete(`http://localhost:3001/cart/productdelete/${id}`,{headers:{Authorization: `Bearer ${token}`}})
+      console.log("Product removed from cart")
+            
+        } catch (error) {
+           return rejectWithValue(error.response.data.message) 
+        }
+    }
+)

@@ -11,6 +11,7 @@ const Login = () => {
   const [password,setPassword]=useState("")
   const navigate=useNavigate()
   const dispatch=useDispatch()
+  
   const HandelLogin=async(e)=> {
     //url de backend//
     try {
@@ -20,8 +21,21 @@ const Login = () => {
       /* const response=await axios.post("http://localhost:3001/user/login",{email,password},{headers:{"Content-Type":"application/json"}})
       localStorage.setItem("accessToken",response.data.accessToken)
       console.log(response.data) */
-      dispatch (loginAction({email,password}))
-      navigate('/')
+      const result = await dispatch (loginAction({email,password}))
+      const payload = await result.payload
+      const role = payload.role
+      console.log("payload",payload)
+      console.log("role",role)
+      if (role === "Admin") {
+        navigate('/admin/dashboard')
+      }
+      else if (role === "provider") {
+        navigate('/provider/dashboard')
+      }
+       else if (role === "client") {
+        navigate('/')
+        
+      } 
     } catch (error) {
       console.error("failled login",error)
     }
