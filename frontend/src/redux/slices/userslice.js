@@ -1,9 +1,12 @@
-import { createSlice, current } from "@reduxjs/toolkit"
-import { loginAction, logoutAction, registerAction } from "../actions/useraction"
+import { createSlice } from "@reduxjs/toolkit"
+import { deleteUser, editUser, getallusers, loginAction, logoutAction, registerAction } from "../actions/useraction"
+
+
 
 
 const initialState={
     currentUser:null,
+    users:[],
     isfetching:false,
     error:null,
 }
@@ -61,8 +64,47 @@ state.currentUser=null
 state.isFetching=false
 state.error=payload  
 })
+.addCase(getallusers.pending,(state)=>{
+    state.isfetching=true
+    state.error=null
+})
+.addCase(getallusers.fulfilled,(state,{payload})=>{
+state.isFetching=false
+state.error=null
+state.users=payload 
+})
+.addCase(getallusers.rejected,(state,{payload})=>{
+state.isFetching=false
+state.error=payload  
+})
+.addCase(deleteUser.pending,(state)=>{
+    state.isfetching=true
+    state.error=null
+})
+.addCase(deleteUser.fulfilled,(state,{payload})=>{
+state.isFetching=false
+state.error=null
+state.users=state.users.filter(user=>user._id!==payload) 
+})
+.addCase(deleteUser.rejected,(state,{payload})=>{
+state.isFetching=false
+state.error=payload
+})
+.addCase(editUser.pending,(state)=>{
+    state.isfetching=true
+    state.error=null
+})
+.addCase(editUser.fulfilled,(state,{payload})=>{
+state.isFetching=false
+state.error=null
+state.users=state.users.map(user=>user._id===payload._id?payload:user)
+})
+.addCase(editUser.rejected,(state,{payload})=>{
+state.isFetching=false
+state.error=payload
+})
 }
 //end register reducer
-
 })
+
 export default userSlice.reducer

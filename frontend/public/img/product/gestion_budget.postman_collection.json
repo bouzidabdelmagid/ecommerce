@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "5d02feff-ab44-4220-94d7-3bf994858968",
+    "name": "gestion_budget",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50980358",
+    "_collection_link": "https://go.postman.co/collection/50980358-5d02feff-ab44-4220-94d7-3bf994858968?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "userregister",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\":\"Abdelmagid Bouzid\",\r\n    \"email\":\"bouzidabdlemagiid@gmail.com\",\r\n    \"password\":\"1234\",\r\n    \"phoneNumber\":\"26272867\",\r\n    \"address\":\"32 rue elmatwia Ariana\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3002/user/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "user",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "userlogin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \r\n    \"email\":\"bouzidyasmine@gmail.com\",\r\n    \"password\":\"1234\"\r\n  \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3002/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getalluser",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3002/user/getallusers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "user",
+                "getallusers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteuser",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\":\"Abdelmagid Bouzid\",\r\n    \"email\":\"bouzidabdlemagiid@gmail.com\",\r\n    \"password\":\"1234\",\r\n    \"phoneNumber\":\"26272867\",\r\n    \"address\":\"32 rue elmatwia Ariana\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/user/deleteuser",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "user",
+                "deleteuser"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

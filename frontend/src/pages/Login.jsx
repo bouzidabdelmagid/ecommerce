@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginAction } from '../redux/actions/useraction'
@@ -29,7 +28,7 @@ const Login = () => {
       if (role === "Admin") {
         navigate('/admin/dashboard')
       }
-      else if (role === "provider") {
+      else if (role === "Provider") {
         navigate('/provider/dashboard')
       }
        else if (role === "client") {
